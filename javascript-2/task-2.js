@@ -11,8 +11,8 @@ var fn2 = () => new Promise(resolve => {
 function promiseReduce(asyncFunctions, reduce, initialValue) { 
   return new Promise((resolve) => {
     let result = Promise.resolve(initialValue)
-    for (let i in asyncFunctions) {
-      result = result.then(asyncFunctions[i]).then((res) => initialValue = reduce(initialValue, res))
+    for (let func of asyncFunctions) {
+      result = result.then(func).then((res) => initialValue = reduce(initialValue, res))
     }
     result.then(() => resolve(initialValue))
   })
