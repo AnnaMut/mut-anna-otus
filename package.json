@@ -1,0 +1,22 @@
+{
+  "name": "mut-anna-otus",
+  "version": "1.0.0",
+  "description": "Modern JavaScript Framework course tasks",
+  "main": "tree.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tree": "node tree.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnnaMut/mut-anna-otus.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnnaMut/mut-anna-otus/issues"
+  },
+  "homepage": "https://github.com/AnnaMut/mut-anna-otus#readme",
+  "dependencies": {}
+}
