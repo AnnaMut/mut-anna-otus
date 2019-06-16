@@ -18,5 +18,9 @@
     "url": "https://github.com/AnnaMut/mut-anna-otus/issues"
   },
   "homepage": "https://github.com/AnnaMut/mut-anna-otus#readme",
-  "dependencies": {}
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-graphql": "^0.8.0",
+    "graphql": "^14.3.1"
+  }
 }
