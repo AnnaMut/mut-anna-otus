@@ -40,5 +40,25 @@ mutation {
   }
 }
 
+mutation {
+   changeProductPrice (id:"2", newPrice: "78") {
+    products (id:"2") {
+      id
+      title
+      price
+    }
+  }
+}
+
+mutation {
+   addProductToBasket (count: "5", titleProduct: "Ann", price: "400") {
+    basket  {
+      count
+      titleProduct
+      price
+    }
+  }
+}
+
 
 

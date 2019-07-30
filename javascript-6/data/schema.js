@@ -4,7 +4,7 @@ var products = [
   {
     "id": "1",
     "title": "Den",
-    "price": "20"
+    "price": "215"
   },
 
   {
@@ -16,9 +16,33 @@ var products = [
   {
     "id": "3",
     "title": "Hav",
-    "price": "20"
+    "price": "3"
   }
 ]
+
+var categories = [
+  {
+    "name": "sale",
+    "productPrice": "3"
+  },
+  { 
+    "name": "mid",
+    "productPrice": "20"
+  },
+  { 
+    "name": "hight",
+    "productPrice": "215"
+  }
+]
+
+var basket = [
+  {
+    "count": "2",
+    "titleProduct": "Den",
+    "price": "430"
+  }
+]
+
 
 var productType = new graphql.GraphQLObjectType ({
 name: 'Product',
@@ -34,6 +58,33 @@ fields: {
   }
 }
 })
+
+var categoryProduct = new graphql.GraphQLObjectType ({
+  name: 'Category',
+  fields: {
+    name: {
+      type: graphql.GraphQLString
+    },
+    productPrice: {
+      type: new graphql.GraphQLNonNull(graphql.GraphQLString)
+    }
+  }
+  })
+
+  var basketProduct = new graphql.GraphQLObjectType ({
+    name: 'Basket',
+    fields: {
+      titleProduct: {
+        type: graphql.GraphQLString
+      },
+      count: {
+        type: graphql.GraphQLString
+      },
+      price: {
+        type: graphql.GraphQLString
+      }
+    }
+    })
 
 var queryType = new graphql.GraphQLObjectType ({
 name: 'Query',
@@ -52,10 +103,17 @@ fields: {
       return products
     }
   },
-  category: {
-    type: new graphql.GraphQLList(productType),
+  categories: {
+    type: new graphql.GraphQLList(categoryProduct),
     resolve: function() {
-      return category
+      return categories
+    }
+  },
+
+  basket: {
+    type: new graphql.GraphQLList(basketProduct),
+    resolve: function() {
+      return basket
     }
   }
 }
@@ -88,7 +146,33 @@ fields: {
       var newProducts = products.splice(prodIndex, 1)
       return newProducts[0]
     }
-  }
+  },
+  addProductToBasket: {
+    type: queryType,
+    args: {
+      count: { type: graphql.GraphQLString },
+      titleProduct: { type: graphql.GraphQLString, defaultValue: "Hav" },
+      price: { type: graphql.GraphQLString }
+    },
+    resolve(parent, { count, titleProduct, price }) {
+      var newOrder = { count, titleProduct, price }
+      basket.push(newOrder)
+      return basket
+    }
+  },
+  changeProductPrice: {
+    type: queryType,
+    args: { 
+      id: { type: graphql.GraphQLString },
+      newPrice: { type: graphql.GraphQLString }
+  },
+    resolve(parent, { id, newPrice }) {
+      var prodIndex = products.findIndex(it => it.id === id)
+      if (prodIndex === -1) throw new Error("Product is not found")
+      products[prodIndex].price = newPrice
+      return products[prodIndex]
+    }
+  },
 }
 });
 

@@ -1,3 +1,0 @@
-
-GET http://localhost:8002/graphql?query={products{title}} HTTP/1.1
-
